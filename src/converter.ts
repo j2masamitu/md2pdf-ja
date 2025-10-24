@@ -46,9 +46,13 @@ export class MarkdownToPdfConverter {
     marked.use(footnotes());
 
     // 数式は最後に処理（他の拡張との競合を避ける）
+    // KaTeXオプションをany型でキャストして渡す
     marked.use(markedKatex({
-      nonStandard: false
-    }));
+      nonStandard: false,
+      // 日本語などのUnicode文字を許可（strict: false で警告を抑制）
+      strict: 'ignore',
+      trust: true
+    } as any));
 
     // MarkdownをHTMLに変換
     const contentHtml = await marked(markdown);
