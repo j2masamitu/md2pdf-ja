@@ -1,0 +1,55 @@
+{
+  "name": "@j2masamitu/md2pdf-ja",
+  "version": "1.0.0",
+  "description": "Convert Japanese Markdown files to beautiful PDFs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "md2pdf-ja": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/cli.js",
+    "dev": "ts-node src/cli.ts"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "markdown",
+    "pdf",
+    "japanese",
+    "converter",
+    "markdown-to-pdf",
+    "documentation",
+    "cli",
+    "日本語"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/md2pdf-ja"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/md2pdf-ja/issues"
+  },
+  "homepage": "https://github.com/yourusername/md2pdf-ja#readme",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "marked": "^11.1.0",
+    "puppeteer": "^24.1.0",
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2"
+  }
+}
