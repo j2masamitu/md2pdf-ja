@@ -1,6 +1,6 @@
 {
   "name": "@j2masamitu/md2pdf-ja",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert Japanese Markdown files to beautiful PDFs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
