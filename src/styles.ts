@@ -134,6 +134,156 @@ export const getDefaultStyles = (theme: string = 'default'): string => {
       margin: 2em 0;
     }
 
+    /* 目次のスタイル */
+    .toc {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 1.5em;
+      margin: 2em 0;
+      page-break-inside: avoid;
+    }
+
+    .toc h2 {
+      margin-top: 0;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      border-bottom: 2px solid #333;
+      padding-bottom: 0.5em;
+    }
+
+    .toc-item {
+      margin: 0.5em 0;
+      line-height: 1.6;
+    }
+
+    .toc-item a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .toc-item a:hover {
+      color: #0066cc;
+      text-decoration: underline;
+    }
+
+    /* 数式のスタイル */
+    .katex {
+      font-size: 1.1em;
+    }
+
+    .katex-display {
+      margin: 1.5em 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    /* KaTeX表示は converter.ts 内のインラインCSSで制御 */
+
+    /* KaTeXのSVG要素のサイズ制限（長いルート記号の問題を修正） */
+    .katex .hide-tail {
+      overflow: hidden;
+    }
+
+    .katex svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .katex .sqrt > .hide-tail > svg {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    /* アラートのスタイル */
+    .alert {
+      border-left: 4px solid;
+      border-radius: 4px;
+      padding: 1em 1.5em;
+      margin: 1.5em 0;
+      background-color: #f8f9fa;
+      page-break-inside: avoid;
+    }
+
+    .alert-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .alert-icon {
+      font-size: 1.2em;
+      margin-right: 0.5em;
+    }
+
+    .alert-content {
+      line-height: 1.6;
+    }
+
+    .alert-note {
+      border-left-color: #0969da;
+      background-color: #ddf4ff;
+    }
+
+    .alert-tip {
+      border-left-color: #1a7f37;
+      background-color: #dafbe1;
+    }
+
+    .alert-important {
+      border-left-color: #8250df;
+      background-color: #f6f0ff;
+    }
+
+    .alert-warning {
+      border-left-color: #bf8700;
+      background-color: #fff8c5;
+    }
+
+    .alert-caution {
+      border-left-color: #cf222e;
+      background-color: #ffebe9;
+    }
+
+    /* 脚注のスタイル */
+    .footnote-ref {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    .footnote-ref a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    .footnote {
+      font-size: 0.9em;
+      margin: 0.5em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #eee;
+    }
+
+    .footnote-num {
+      font-weight: bold;
+      margin-right: 0.5em;
+      color: #666;
+    }
+
+    .footnote-text {
+      color: #555;
+    }
+
+    .footnote-backref {
+      margin-left: 0.5em;
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    .footnote-backref:hover {
+      text-decoration: underline;
+    }
+
     @media print {
       body {
         padding: 0;
@@ -143,7 +293,7 @@ export const getDefaultStyles = (theme: string = 'default'): string => {
         page-break-after: avoid;
       }
 
-      pre, table, img {
+      pre, table, img, .toc {
         page-break-inside: avoid;
       }
     }

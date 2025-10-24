@@ -1,7 +1,7 @@
 {
   "name": "@j2masamitu/md2pdf-ja",
-  "version": "1.0.1",
-  "description": "Convert Japanese Markdown files to beautiful PDFs",
+  "version": "1.1.0",
+  "description": "Convert Japanese Markdown files to beautiful PDFs with math equations, alerts, and footnotes support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
@@ -29,7 +29,12 @@
     "markdown-to-pdf",
     "documentation",
     "cli",
-    "日本語"
+    "日本語",
+    "katex",
+    "math",
+    "equations",
+    "footnotes",
+    "alerts"
   ],
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",
@@ -42,14 +47,17 @@
   },
   "homepage": "https://github.com/j2masamitu/md2pdf-ja#readme",
   "dependencies": {
+    "chalk": "^4.1.2",
     "commander": "^11.1.0",
-    "marked": "^11.1.0",
-    "puppeteer": "^24.1.0",
-    "chalk": "^4.1.2"
+    "katex": "^0.16.25",
+    "marked": "^16.4.1",
+    "marked-gfm-heading-id": "^4.1.2",
+    "marked-katex-extension": "^5.1.5",
+    "puppeteer": "^24.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
-    "typescript": "^5.3.3",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }
