@@ -35,12 +35,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/md2pdf-ja"
+    "url": "https://github.com/j2masamitu/md2pdf-ja"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/md2pdf-ja/issues"
+    "url": "https://github.com/j2masamitu/md2pdf-ja/issues"
   },
-  "homepage": "https://github.com/yourusername/md2pdf-ja#readme",
+  "homepage": "https://github.com/j2masamitu/md2pdf-ja#readme",
   "dependencies": {
     "commander": "^11.1.0",
     "marked": "^11.1.0",
