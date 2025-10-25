@@ -11,6 +11,7 @@
 - **脚注機能** - 学術文書やレポート向けの脚注サポート
 - **見出しIDの自動生成** - GitHubスタイルの見出しID
 - **目次の自動生成** - `--toc` オプションで目次を生成
+- **ローカル画像サポート** - 絶対パス・相対パスの画像を自動変換（Windows/Mac/Linux対応）
 - シンタックスハイライト対応
 - 複数のテーマ（デフォルト、学術、ビジネス）
 - カスタムCSSサポート
@@ -137,6 +138,26 @@ $$
 ```bash
 md2pdf-ja document.md --toc -o output.pdf
 ```
+
+### 画像の埋め込み
+
+ローカル画像は自動的に`file://`プロトコルに変換されます。
+
+```markdown
+<!-- 相対パス -->
+![図1](./images/diagram.png)
+
+<!-- 絶対パス（Windows） -->
+![図2](C:\Users\user\images\chart.png)
+
+<!-- 絶対パス（Mac/Linux） -->
+![図3](/home/user/images/photo.jpg)
+
+<!-- URL -->
+![図4](https://example.com/image.png)
+```
+
+すべてのパス形式に対応しています。
 
 ## テーマ
 

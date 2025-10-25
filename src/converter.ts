@@ -55,7 +55,10 @@ export class MarkdownToPdfConverter {
     } as any));
 
     // MarkdownをHTMLに変換
-    const contentHtml = await marked(markdown);
+    let contentHtml = await marked(markdown);
+
+    // ローカル画像パスをfile://プロトコルに変換
+    contentHtml = this.convertLocalImagePaths(contentHtml);
 
     // デバッグ用: 変換後のコンテンツHTMLを出力（開発時のみ）
     if (process.env.DEBUG_HTML) {
@@ -193,6 +196,63 @@ export class MarkdownToPdfConverter {
     } finally {
       await browser.close();
     }
+  }
+
+  private convertLocalImagePaths(html: string): string {
+    // 画像タグのsrc属性を検索して、ローカル画像をBase64エンコードして埋め込む
+    return html.replace(
+      /<img([^>]*?)src=["']([^"']+)["']([^>]*?)>/g,
+      (match, before, src, after) => {
+        // すでにプロトコルがある場合はそのまま（http://, https://, data: など）
+        if (/^(https?|data):/.test(src)) {
+          return match;
+        }
+
+        // 絶対パスまたは相対パスを解決
+        let absolutePath: string;
+
+        // Windowsの絶対パス（C:\... または C:/...）
+        if (/^[a-zA-Z]:/.test(src)) {
+          // バックスラッシュをスラッシュに統一
+          absolutePath = src.replace(/\\/g, '/');
+        }
+        // Unix絶対パス（/...）
+        else if (path.isAbsolute(src)) {
+          absolutePath = src;
+        }
+        // 相対パス
+        else {
+          const inputDir = path.dirname(path.resolve(this.options.input));
+          absolutePath = path.resolve(inputDir, src).replace(/\\/g, '/');
+        }
+
+        // 画像ファイルを読み込んでBase64エンコード
+        try {
+          const imageBuffer = require('fs').readFileSync(absolutePath);
+          const ext = path.extname(absolutePath).toLowerCase();
+
+          // MIMEタイプを決定
+          const mimeTypes: { [key: string]: string } = {
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.png': 'image/png',
+            '.gif': 'image/gif',
+            '.svg': 'image/svg+xml',
+            '.webp': 'image/webp',
+            '.bmp': 'image/bmp'
+          };
+
+          const mimeType = mimeTypes[ext] || 'image/png';
+          const base64 = imageBuffer.toString('base64');
+          const dataUri = `data:${mimeType};base64,${base64}`;
+
+          return `<img${before}src="${dataUri}"${after}>`;
+        } catch (error) {
+          console.warn(`Warning: Could not load image from ${absolutePath}`);
+          return match;
+        }
+      }
+    );
   }
 
   private generateToc(headings: any[]): string {
