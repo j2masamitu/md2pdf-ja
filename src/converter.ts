@@ -1,4 +1,3 @@
-import { marked } from 'marked';
 import puppeteer, { PDFOptions } from 'puppeteer';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -7,6 +6,17 @@ import { getDefaultStyles } from './styles';
 import markedKatex from 'marked-katex-extension';
 import { gfmHeadingId, getHeadingList } from 'marked-gfm-heading-id';
 import { githubAlerts, footnotes } from './extensions';
+
+// Markedのキャッシュ（ESM対応のための動的インポート）
+let markedInstance: typeof import('marked').marked | null = null;
+
+async function getMarked() {
+  if (!markedInstance) {
+    const { marked } = await import('marked');
+    markedInstance = marked;
+  }
+  return markedInstance;
+}
 
 export class MarkdownToPdfConverter {
   private options: ConvertOptions;
@@ -34,6 +44,9 @@ export class MarkdownToPdfConverter {
   }
 
   private async markdownToHtml(markdown: string): Promise<string> {
+    // markedの取得（動的インポート）
+    const marked = await getMarked();
+
     // markedの設定
     marked.setOptions({
       breaks: true,
