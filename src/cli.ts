@@ -7,12 +7,17 @@ import * as path from 'path';
 import * as fs from 'fs';
 import chalk from 'chalk';
 
+// package.jsonからバージョンを読み込む
+const packageJson = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf-8')
+);
+
 const program = new Command();
 
 program
   .name('md2pdf-ja')
   .description('Convert Japanese Markdown files to beautiful PDFs')
-  .version('1.0.0')
+  .version(packageJson.version)
   .argument('<input>', 'Input Markdown file')
   .option('-o, --output <path>', 'Output PDF file path')
   .option('-t, --title <title>', 'Document title')
